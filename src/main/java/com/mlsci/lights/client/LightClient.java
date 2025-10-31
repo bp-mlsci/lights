@@ -1,11 +1,19 @@
 package com.mlsci.lights.client;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.URI;
+import java.net.URL;
+
 import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
+import com.mlsci.lights.repo.Light;
+
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import tools.jackson.databind.ObjectMapper;
 /*
  retry: 30000
 id: 8442876
@@ -57,16 +65,69 @@ data: {"id":"select-power_on_state","name":"Power On State","icon":"mdi:restart-
 @RequiredArgsConstructor
 public class LightClient {
 	private final RestTemplate restTemplate;
+	private final ObjectMapper objectMapper;
 	
 	public LightStatus getLightStatus(String ip) {
 		var url = "http://" + ip + "/light/kauf_bulb";
+		//System.out.print(url);
 		try {
-			var ans = restTemplate.exchange(url, HttpMethod.GET, null, LightStatus.class).getBody();	
-			return ans;
+			var ans = restTemplate.exchange(url, HttpMethod.GET, null, LightStatus.class);
+			//System.out.println(" " + ans.getStatusCode());
+			return ans.getBody();
 		} catch(Exception ex) {
+			//ex.printStackTrace();
 			return null;
 		}
 		
 	}
+
+	
+	
+	   public BulbData getBulbData(String ip) {
+	        String urlString = "http://" + ip + "/events"; 
+	        int linesToRead = 7; // Number of lines to read
+	        BulbData bulbData = null;
+	        try {
+	            URL url = new URI(urlString).toURL();
+	            // Using try-with-resources ensures the BufferedReader is automatically closed
+	            try (BufferedReader reader = new BufferedReader(new InputStreamReader(url.openStream()))) {
+	                String line;
+	                int count = 0;
+	                var next = false;
+	                while ((line = reader.readLine()) != null && count < linesToRead) {
+	                    if(next) {
+	                    	var json = line.substring("data: ".length());
+	                    	bulbData = objectMapper.readValue(json, BulbData.class);
+	                    	next = false;		
+	                    }
+	                	if(line.startsWith("event: ping")) {
+	                    	next = true;
+	                    }
+	                    
+	                    	
+	                    count++;
+	                }
+	            }
+	            return bulbData;
+	            
+	            
+	            
+	        } catch (Exception e) {
+	            System.err.println("Error reading from URL: " + e.getMessage());
+	            return null;
+	        }
+	        
+	        
+	    }
+
+
+
+	   public void setColor(Light light, Color color, int transition, int brightness) {
+		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() + "&g=" + color.getG() + "&b=" + color.getB()  + "&transition=" + transition + "&brightness=" + brightness;
+		   
+		   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+		   log.info(ans.getStatusCode().toString());
+		
+	   }
 	
 }

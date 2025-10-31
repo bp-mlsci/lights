@@ -10,7 +10,7 @@ import lombok.RequiredArgsConstructor;
 class DiscoverSchedule {
 	private final Discover discover;
 	
-	@Scheduled(fixedDelay = 10_000L)
+	@Scheduled(fixedDelay = 30_000L)
 	void doDiscover() {
 		discover.search();
 	}

@@ -41,7 +41,7 @@ public class Looper implements Action {
 			try(var scope = new Concurrent()) {
 				for(var light : lights) {
 					scope.fork(() -> {
-						lightClient.setColor(light, color, 4, brightness);
+						lightClient.setColor(light, color, "4", brightness);
 						return true;
 					});
 				}

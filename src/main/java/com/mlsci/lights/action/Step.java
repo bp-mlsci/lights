@@ -9,5 +9,6 @@ public class Step {
 	private int index = 0;
 	private long untilTimeMillis;
 	private boolean ended = false;
+	private int count =0;
 	
 }

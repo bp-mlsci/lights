@@ -122,7 +122,7 @@ public class LightClient {
 
 
 
-	   public void setColor(Light light, Color color, int transition, int brightness) {
+	   public void setColor(Light light, Color color, String transition, int brightness) {
 		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() + "&g=" + color.getG() + "&b=" + color.getB()  + "&transition=" + transition + "&brightness=" + brightness;
 		   
 		   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);

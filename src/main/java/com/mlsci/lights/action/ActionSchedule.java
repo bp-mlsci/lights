@@ -34,7 +34,7 @@ public class ActionSchedule {
 	}
 	
 	
-	@Scheduled(fixedDelay = 4_000L)
+	@Scheduled(fixedDelay = 500L)
 	void clockTick() {
 		//log.info("Clock Tick");
 		if(clockEnabled) {

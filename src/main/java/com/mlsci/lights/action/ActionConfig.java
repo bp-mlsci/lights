@@ -1,5 +1,7 @@
 package com.mlsci.lights.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,6 +34,18 @@ public class ActionConfig {
 	}
 	
 	
+	@Bean
+	Action chase1() {
+		return new Chase(lightClient, lightRepo, "chase 1",
+				List.of(Color.BLUE, Color.RED, Color.BLACK)
+				, 1);
+	}
+	@Bean
+	Action chase2() {
+		return new Chase(lightClient, lightRepo, "chase 2",
+				List.of(Color.INDIGO, Color.ORANGE, Color.BLACK)
+				, -1);
+	}
 	
 	@Bean 
 	Action christmas() {

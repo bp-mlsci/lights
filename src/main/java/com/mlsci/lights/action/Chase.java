@@ -18,8 +18,8 @@ public class Chase implements Action {
 	private final LightClient lightClient;
 	private final LightRepo lightRepo;
 	private final String name;
-	private final int delay;
 	private final List<Color> colorList;
+	private final int offset;
 	
 	
 	private List<Light> lights; 
@@ -32,36 +32,10 @@ public class Chase implements Action {
 	@Override
 	public Step getFirstStep() {
 		var step = new Step();
-		step.setIndex(-1);
+		step.setIndex(0);
 		step.setUntilTimeMillis(System.currentTimeMillis() - 10L);
-		lights = sortLights();
+		lights = lightRepo.getChase();
 		return step;
-	}
-
-
-	
-	private List<Light> sortLights() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-
-	void colorAll(Color color, int brightness) {
-		try {
-			var lights = lightRepo.getAll();
-			try(var scope = new Concurrent()) {
-				for(var light : lights) {
-					scope.fork(() -> {
-						lightClient.setColor(light, color, 4, brightness);
-						return true;
-					});
-				}
-				scope.join();
-			}
-		} catch (Exception ex) {
-			log.error("color all fail",ex);
-		}
-		
 	}
 	
 	
@@ -70,26 +44,26 @@ public class Chase implements Action {
 	public Step doStep(Step currentStep) {
 		if(System.currentTimeMillis() > currentStep.getUntilTimeMillis()) {
 			var index = currentStep.getIndex();
-			index++; 
-			if(index >= colorTimes.size()) {
-				log.info(name + " Ended");
-				currentStep.setEnded(true);
-				return currentStep;
-			}
-			log.info(name + " on " + index);
-			currentStep.setIndex(index);
-			colorAll(colorTimes.get(index).color(), colorTimes.get(index).brightness());
-			currentStep.setUntilTimeMillis((System.currentTimeMillis() - 10L) + (1000L * colorTimes.get(index).seconds()));
-			
+			setLights(index);
+			currentStep.setIndex(index+offset);
+			currentStep.setCount(currentStep.getCount() + 1);
+			currentStep.setEnded(currentStep.getCount() > (lights.size() * 5));
+			currentStep.setUntilTimeMillis(System.currentTimeMillis() + 1200L);
 		} else {
-			log.info(name + " Looper No Change " + currentStep.getIndex());
+			log.info(name + " Chase No Change " + currentStep.getIndex());
 		}
 		return currentStep;
 	}
 
-	public void add(Color color, long seconds, int brightness) {
-		colorTimes.add(new ColorTime(color,seconds, brightness));
-		
+
+	void setLights(int index) {
+		var i = index;
+		for(var color : colorList) {
+			var light = lights.get(i % lights.size());
+			lightClient.setColor(light, color, "0.5", 200);
+			i--;
+		}
 	}
 
+	
 }

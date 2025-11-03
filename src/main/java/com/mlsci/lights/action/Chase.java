@@ -1,11 +1,9 @@
 package com.mlsci.lights.action;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
-import com.mlsci.lights.discover.Concurrent;
 import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightRepo;
 

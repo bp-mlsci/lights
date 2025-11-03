@@ -56,7 +56,7 @@ class LightRepoTest {
 		assertEquals(-1, l.getCol());
 		
 		l.setBulbData(new BulbData());
-		l.getBulbData().setTitle("kauf bulb " + LightRepo._080AAC);
+		l.getBulbData().setTitle("kauf bulb " + LightRepo.TESTER);
 		lightRepo.assignLocation(l);
 		assertTrue(l.getCol() >= 0);
 		assertTrue(l.getRow() >= 0);

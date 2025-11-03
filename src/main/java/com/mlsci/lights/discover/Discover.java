@@ -1,7 +1,6 @@
 package com.mlsci.lights.discover;
 
 import java.net.InetAddress;
-import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 

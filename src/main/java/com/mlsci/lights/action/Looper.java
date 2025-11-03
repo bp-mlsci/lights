@@ -71,7 +71,7 @@ public class Looper implements Action {
 			currentStep.setUntilTimeMillis((System.currentTimeMillis() - 10L) + (1000L * colorTimes.get(index).seconds()));
 			
 		} else {
-			log.info(name + " Looper No Change " + currentStep.getIndex());
+			//log.info(name + " Looper No Change " + currentStep.getIndex());
 		}
 		return currentStep;
 	}

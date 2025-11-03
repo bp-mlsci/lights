@@ -15,13 +15,48 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 @Slf4j
 public class LightRepo {
-	public static final String _080AAC = "080aac";
+	public static final String TESTER = "tester";
 	private Map<String, Light> lights = new HashMap<String, Light>();
 	private List<Light> chase = null;
 	
 	private static final String[][] loc = {
-			{_080AAC,"0", "1"},
-			{"080db9", "2", "3"}
+			{TESTER,"0", "1"},
+			
+			// window wall cans
+			{"d8086c", "2", "0"},
+			{"d80xxx", "3", "0"},
+			{"d80xxx", "4", "0"},
+			{"d80xxx", "5", "0"},
+			{"d80xxx", "6", "0"},
+			{"d80b9a", "7", "0"},
+			
+			// back door
+			{"d80xxx", "8", "1"},
+			{"d80xxx", "9", "1"},
+			{"d80xxx", "9", "2"},
+			{"d80xxx", "9", "3"},
+			{"d80xxx", "8", "3"},
+			
+			// bathroom wall
+			{"d80bd9", "7", "4"},
+			{"d80xxx", "6", "4"},
+			{"d80xxx", "5", "4"},
+			{"d80xxx", "4", "4"},
+			{"d80xxx", "3", "4"},
+			{"d80acc", "2", "4"},
+			
+			
+			// Front Door
+			{"d80xxx", "1", "3"},
+			{"d80xxx", "0", "3"},
+			{"d80xxx", "0", "2"},
+			{"d80xxx", "0", "1"},
+			{"d80xxx", "1", "1"},
+			
+			// helix area
+			
+			{"d80xxx", "3", "5"},
+			{"d80xxx", "2", "5"},
 			
 	};
 	

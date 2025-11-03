@@ -2,7 +2,6 @@ package com.mlsci.lights.action;
 
 import java.util.List;
 
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -26,7 +25,7 @@ public class ActionSchedule {
 	void nextAction() {
 		currentAction = actions.get(actionIndex);
 		actionIndex++;
-		if(actionIndex > actions.size()) {
+		if(actionIndex >= actions.size()) {
 			actionIndex = 0;
 		}
 		log.info(currentAction.getName());

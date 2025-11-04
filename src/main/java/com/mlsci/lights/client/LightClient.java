@@ -123,11 +123,42 @@ public class LightClient {
 
 
 	   public void setColor(Light light, Color color, String transition, int brightness) {
-		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() + "&g=" + color.getG() + "&b=" + color.getB()  + "&transition=" + transition + "&brightness=" + brightness;
-		   
+		   if(color.getColor_temp() != null) {
+			   setWhite(light, transition, brightness, color.getColor_temp());
+		   } else if(color.getR() == null) {
+			   setOff(light, transition);
+		   } else {
+			   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() 
+		   		+ "&g=" + color.getG() + "&b=" + color.getB()  
+		   		+ "&transition=" + transition + "&brightness=" + brightness;
+			   command(light, url);
+		   }
+	   }
+
+
+
+	   private void command(Light light, String url) {
+		light.setLastCommand(url);
 		   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
-		   log.info(ans.getStatusCode().toString());
-		
+		   var result = ans.getStatusCode().toString();
+		   log.debug(result);
+		   light.setLastResult(result);
+	   }
+	   
+	   
+	   
+	   // color temp 357 warmest, 151 coolest
+	   public void setWhite(Light light, String transition, int brightness, int color_temp) {
+		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?transition=" + transition +
+				   "&brightness=" + brightness + 
+				   "&color_temp=" + color_temp;
+		   command(light, url);
+	   }
+	   
+	   public void setOff(Light light, String transition) {
+		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_off?transition=" + transition;
+		   command(light, url);
+		   
 	   }
 	
 }

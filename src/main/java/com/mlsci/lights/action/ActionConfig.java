@@ -65,7 +65,9 @@ public class ActionConfig {
 		for(int i = 1; i < 3; i++ ) {
 			l.add(Color.INDIGO, 15, 200);
 		    l.add(Color.SUNRISE_YELLOW, 20, 200);
-		    l.add(Color.HIGH_NOON, 180, 250);
+		    l.add(Color.HIGH_NOON, 60, 200);
+		    l.add(Color.HIGH_NOON, 60, 250);
+		    l.add(Color.HIGH_NOON, 60, 200);
 		    l.add(Color.SUNSET_ORANGE, 20, 200);
 		    l.add(Color.INDIGO, 15, 200);
 		    l.add(Color.BLACK, 30, 20);

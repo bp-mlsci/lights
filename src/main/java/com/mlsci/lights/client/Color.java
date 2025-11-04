@@ -14,6 +14,7 @@ public class Color {
 	private Integer g;
 	private Integer b;
 	private Integer w;
+	private Integer color_temp;
 
 
 	
@@ -25,6 +26,13 @@ public class Color {
 		c.setR(red);
 		return c;
 	}
+	
+	public static Color of(int color_temp) {
+		var c = new Color();
+		c.setColor_temp(color_temp);
+		return c;
+	}
+	
 	
 	public static final Color RED = Color.of(255, 0, 0);
 	public static final Color ORANGE = Color.of(255, 127, 0);
@@ -39,11 +47,11 @@ public class Color {
 
 	public static final Color[] COLORS = { RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET };
 
-	public static final Color HIGH_NOON = Color.of(255, 255, 241);
-	public static final Color OVERCAST = Color.of(201, 226, 255);
+	public static final Color HIGH_NOON = Color.of(340);
+	public static final Color OVERCAST = Color.of(300);
 	public static final Color SUNSET_ORANGE = Color.of(253, 94, 83);
 	public static final Color SUNRISE_YELLOW = Color.of(247, 205, 93);
-	public static final Color BLACK = Color.of(1, 0, 0);
+	public static final Color BLACK = new Color();// null red and null color temp == OFF
 
 
 	public static final Color[] CHRISTMAS = { RED, GREEN };

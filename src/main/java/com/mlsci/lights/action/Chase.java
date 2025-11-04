@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
-import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightRepo;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +19,7 @@ public class Chase implements Action {
 	private final int offset;
 	
 	
-	private List<Light> lights; 
+
 	
 	
 	@Override
@@ -32,7 +31,6 @@ public class Chase implements Action {
 		var step = new Step();
 		step.setIndex(0);
 		step.setUntilTimeMillis(System.currentTimeMillis() - 10L);
-		lights = lightRepo.getChase();
 		return step;
 	}
 	
@@ -45,7 +43,7 @@ public class Chase implements Action {
 			setLights(index);
 			currentStep.setIndex(index+offset);
 			currentStep.setCount(currentStep.getCount() + 1);
-			currentStep.setEnded(currentStep.getCount() > (lights.size() * 5));
+			currentStep.setEnded(currentStep.getCount() > (lightRepo.getChase().size() * 5));
 			currentStep.setUntilTimeMillis(System.currentTimeMillis() + 1200L);
 		} else {
 			log.info(name + " Chase No Change " + currentStep.getIndex());
@@ -57,7 +55,7 @@ public class Chase implements Action {
 	void setLights(int index) {
 		var i = index;
 		for(var color : colorList) {
-			var light = lights.get(i % lights.size());
+			var light = lightRepo.getChase().get(i % lightRepo.getChase().size());
 			lightClient.setColor(light, color, "0.5", 200);
 			i--;
 		}

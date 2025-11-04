@@ -16,4 +16,6 @@ public class Light {
 	private BulbData bulbData;
 	private int row = -1;
 	private int col = -1;
+	private String lastCommand;
+	private String lastResult;
 }

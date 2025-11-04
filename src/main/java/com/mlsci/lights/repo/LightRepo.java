@@ -33,7 +33,7 @@ public class LightRepo {
 			{ "d80bd9", "7", "4", "G" }, // TO Label
 			{ "d80995", "6", "4", "H" }, 
 			{ "d80bec", "5", "4", "I" }, 
-			{ "30282b", "4", "4", "J" }, // rattles!
+			{ "d80b5a", "4", "4", "J" }, // was W
 			{ "d8096b", "3", "4", "K" }, 
 			{ "d80acc", "2", "4", "L" }, // to label
 
@@ -54,7 +54,7 @@ public class LightRepo {
 
 			// helix area
 
-			{ "d80b5a", "3", "5", "W" }, 
+			{ "d80XXX", "3", "5", "W" }, 
 			{ "d80xxx", "2", "5" },
 
 	};
@@ -74,6 +74,7 @@ public class LightRepo {
 
 	public void add(Light light) {
 		log.info(light.toString());
+		assignLocation(light);
 		lights.put(light.getIp(), light);
 
 		chase = null;

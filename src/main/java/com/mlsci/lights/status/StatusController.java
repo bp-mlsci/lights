@@ -16,7 +16,8 @@ class StatusController {
 	@GetMapping("/status")
 	String status(ModelMap map) {
 		
-		map.put("lights", lightRepo.getChase());
+		map.put("chase", lightRepo.getChase());
+		map.put("lights", lightRepo.getAll());
 		return "status";
 		
 		

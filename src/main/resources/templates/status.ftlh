@@ -7,6 +7,15 @@
 <p>NO LIGHTS<<br></p>
 </#list>
 
+
+<h2>Chase<br></h2>
+<#list chase as light> 
+<p>${light.toString()}<br></p>
+<#else>
+<p>NO Chase LIGHTS<<br></p>
+</#list>
+
+
 </body>
 
 </html>

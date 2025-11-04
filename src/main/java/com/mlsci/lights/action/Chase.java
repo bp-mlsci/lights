@@ -54,8 +54,15 @@ public class Chase implements Action {
 
 	void setLights(int index) {
 		var i = index;
+		var chase = lightRepo.getChase();
 		for(var color : colorList) {
-			var light = lightRepo.getChase().get(i % lightRepo.getChase().size());
+			if( i < 0 ) {
+				i = chase.size() - 1;
+			}
+			if(i >= chase.size()) {
+				i = 0;
+			}
+			var light = chase.get(i);
 			lightClient.setColor(light, color, "0.5", 200);
 			i--;
 		}

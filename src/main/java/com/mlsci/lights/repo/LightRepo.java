@@ -19,7 +19,8 @@ public class LightRepo {
 	private Map<String, Light> lights = new HashMap<String, Light>();
 	private List<Light> chase = null;
 
-	private static final String[][] loc = { { TESTER, "0", "1" },
+	private static final String[][] loc = { 
+			{ TESTER, "0", "1", "NA" },
 
 			// window wall cans
 			{ "d8086c", "2", "0", "A" }, // to label

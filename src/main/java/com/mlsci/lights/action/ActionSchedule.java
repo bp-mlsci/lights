@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,7 +21,13 @@ public class ActionSchedule {
 	private Step currentStep;
 	
 	
-	
+	@PostConstruct
+	void sortActions() {
+		actions.sort((a,b) -> a.getName().compareTo(b.getName()));
+		for(var a: actions ) {
+			System.out.println(a.getName());
+		}
+	}
 	
 	void nextAction() {
 		currentAction = actions.get(actionIndex);

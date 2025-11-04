@@ -16,40 +16,49 @@ public class ActionConfig {
 	@Autowired LightClient lightClient;
 	@Autowired LightRepo lightRepo;
 	
-	@Bean 
-	Action days1() {
-		return days("Days1");
-		
-	}
-	
-	//@Bean 
-	Action days2() {
-		return days("Days2");
-	}
 	
 	
 	@Bean 
-	Action rainbow1() {
-		return rainbow("Rainbow1");
-	}
+	Action days1() { return days("A Days1"); }
+	
+	@Bean 
+	Action rainbow1() { return rainbow("B Rainbow1");}
+
+
+	@Bean 
+	Action christmas1() { return christmas("C Christmas1"); }
 	
 	
 	@Bean
-	Action chase1() {
-		return new Chase(lightClient, lightRepo, "chase 1",
+	Action chase1() { return new Chase(lightClient, lightRepo, "D Chase 1",
 				List.of(Color.BLUE, Color.RED, Color.BLACK)
 				, 1);
 	}
+	
+	@Bean 
+	Action days2() { return days("E Days2"); }
+	
+	
+	@Bean 
+	Action christmas2() { return christmas("F Christmas2"); }
+
+	
+	
 	@Bean
 	Action chase2() {
-		return new Chase(lightClient, lightRepo, "chase 2",
+		return new Chase(lightClient, lightRepo, "G Chase 2",
 				List.of(Color.INDIGO, Color.ORANGE, Color.BLACK)
 				, -1);
 	}
+
 	
 	@Bean 
-	Action christmas() {
-		var l = new Looper(lightClient, lightRepo, "Christmas");
+	Action rainbow2() { return rainbow("H Rainbow2");}
+
+	
+	
+	Action christmas(String name) {
+		var l = new Looper(lightClient, lightRepo, name);
 				
 		for(int i = 1; i < 4; i++ ) {
 			l.add(Color.RED, 20, i * 50);

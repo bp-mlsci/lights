@@ -41,8 +41,8 @@ public class ApacheHttpClientConfig {
 	RestTemplate restTemplate() {
 	  return new RestTemplateBuilder()
 	          .requestFactory(this::clientHttpRequestFactory)
-	          .connectTimeout(Duration.ofMillis(200)) // .2 seconds connection timeout
-              .readTimeout(Duration.ofMillis(2000)) // 2 seconds read timeout
+	          .connectTimeout(Duration.ofMillis(800)) // MILLI seconds connection timeout
+              .readTimeout(Duration.ofMillis(3500)) // MILLI seconds read timeout
 	          .build();
 	}
 	

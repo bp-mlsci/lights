@@ -23,7 +23,7 @@ public class LightRepo {
 			{ TESTER, "0", "1", "NA" },
 
 			// window wall cans
-			{ "d8086c", "2", "0", "A" }, // to label
+			{ "d8086c", "2", "0", "A" , "EC:64:C9:D8:0B:6C", "200"}, // to label
 			{ "d808da", "3", "0", "B" }, 
 			{ "d80953", "4", "0", "C" }, 
 			{ "d80a6c", "5", "0", "D" },
@@ -55,8 +55,10 @@ public class LightRepo {
 
 			// helix area
 
-			{ "d80XXX", "3", "5", "W" }, 
-			{ "d80xxx", "2", "5" },
+			// d80a21 failed on reload firmware	
+			{ "d80b3d", "3", "5", "W" }, 
+			{ "d80936", "2", "5", "X" },
+			{ "d809db", "4", "5", "Y" },
 
 	};
 
@@ -135,3 +137,47 @@ public class LightRepo {
 	}
 
 }
+
+/*
+ 
+ Light(ip=192.168.68.82, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b28, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:28), row=8, col=3, lastCommand=http://192.168.68.82/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.93, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80953, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:09:53), row=4, col=0, lastCommand=http://192.168.68.93/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.60, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80995, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:09:95), row=6, col=4, lastCommand=http://192.168.68.60/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.81, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80ba6, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:A6), row=0, col=2, lastCommand=http://192.168.68.81/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.92, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80a6c, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0A:6C), row=5, col=0, lastCommand=http://192.168.68.92/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.91, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b9a, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:9A), row=7, col=0, lastCommand=http://192.168.68.91/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.80, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b31, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:31), row=1, col=3, lastCommand=http://192.168.68.80/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.90, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80877, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:08:77), row=6, col=0, lastCommand=http://192.168.68.90/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.79, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b7f, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:7F), row=1, col=1, lastCommand=http://192.168.68.79/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.89, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d8086c, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:08:6C), row=2, col=0, lastCommand=http://192.168.68.89/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.78, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80c08, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0C:08), row=8, col=1, lastCommand=http://192.168.68.78/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.77, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b29, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:29), row=9, col=1, lastCommand=http://192.168.68.77/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.76, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d8092e, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:09:2E), row=0, col=1, lastCommand=http://192.168.68.76/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.75, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80a26, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0A:26), row=9, col=2, lastCommand=http://192.168.68.75/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.63, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80acc, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0A:CC), row=2, col=4, lastCommand=http://192.168.68.63/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.74, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80a43, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0A:43), row=0, col=3, lastCommand=http://192.168.68.74/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.62, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80bec, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:EC), row=5, col=4, lastCommand=http://192.168.68.62/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.73, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d808ae, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:08:AE), row=9, col=3, lastCommand=http://192.168.68.73/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.61, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=ON, color_mode=rgb, brightness=150, color=Color(r=0, g=255, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d80b5a, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:0B:5A), row=4, col=4, lastCommand=http://192.168.68.61/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+
+Light(ip=192.168.68.94, lightStatus=LightStatus(id=light-kauf_bulb, name=null, state=OFF, color_mode=rgb, brightness=200, color=Color(r=255, g=0, b=0, w=null, color_temp=null), white_value=null, color_temp=null), bulbData=BulbData(title=Kauf Bulb d808da, comment=, ota=true, log=true, lang=en, esph_v=2025.8.1, proj_n=Kauf.RGBWW, proj_v=1.96(u), proj_l=, mac_addr=EC:64:C9:D8:08:DA), row=3, col=0, lastCommand=http://192.168.68.94/light/kauf_bulb/turn_on?r=0&g=255&b=0&transition=4&brightness=80, lastResult=200 OK)
+ 
+*/

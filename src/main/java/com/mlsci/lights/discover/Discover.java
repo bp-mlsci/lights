@@ -22,18 +22,19 @@ class Discover {
 	
 	void search() {
 		log.info("Searching for lights");
-		try {
-			try(Concurrent scope = new Concurrent()) {
-				for(int x = 2; x < 255; x++) {
-					var ip = SUBNET + x;
-					scope.fork(() -> checkIp(ip));
+		for(int pre = 60; pre < 101; pre+=10) {
+			try {
+				try(Concurrent scope = new Concurrent()) {
+					for(int x = 0; x < 10; x++) {
+						var ip = SUBNET + (pre + x);
+						scope.fork(() -> checkIp(ip));
+					}
+					scope.join();
 				}
-				scope.join();
+			} catch(Exception ex) {
+				ex.printStackTrace();
 			}
-		} catch(Exception ex) {
-			ex.printStackTrace();
-		}
-			
+		}	
 		log.info("Done Searching for lights");
 	}
 	

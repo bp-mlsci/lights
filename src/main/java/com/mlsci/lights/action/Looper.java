@@ -7,6 +7,7 @@ import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
 import com.mlsci.lights.discover.Concurrent;
 import com.mlsci.lights.repo.LightRepo;
+import com.mlsci.lights.repo.Room;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class Looper implements Action {
 	private final LightClient lightClient;
 	private final LightRepo lightRepo;
 	private final String name;
+	private final Room room;
 	
 	private List<ColorTime> colorTimes = new ArrayList<ColorTime>();
 	
@@ -79,6 +81,12 @@ public class Looper implements Action {
 	public void add(Color color, long seconds, int brightness) {
 		colorTimes.add(new ColorTime(color,seconds, brightness));
 		
+	}
+
+
+	@Override
+	public Room getRoom() {
+		return room;
 	}
 
 }

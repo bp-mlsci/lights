@@ -1,5 +1,7 @@
 package com.mlsci.lights.action;
 
+import com.mlsci.lights.repo.Room;
+
 public interface Action {
 
 	Step getFirstStep();
@@ -8,4 +10,6 @@ public interface Action {
 
 	String getName();
 
+	Room getRoom();
+	
 }

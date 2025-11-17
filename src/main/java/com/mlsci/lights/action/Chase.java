@@ -5,6 +5,7 @@ import java.util.List;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
 import com.mlsci.lights.repo.LightRepo;
+import com.mlsci.lights.repo.Room;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,6 +18,7 @@ public class Chase implements Action {
 	private final String name;
 	private final List<Color> colorList;
 	private final int offset;
+	private final Room room;
 	
 	
 
@@ -74,6 +76,13 @@ public class Chase implements Action {
 			i--;
 		}
 	}
+
+
+	@Override
+	public Room getRoom() {
+		return room;
+	}
+
 
 	
 }

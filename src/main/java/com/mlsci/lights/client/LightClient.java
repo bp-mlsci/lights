@@ -138,11 +138,14 @@ public class LightClient {
 
 
 	   private void command(Light light, String url) {
-		light.setLastCommand(url);
-		   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
-		   var result = ans.getStatusCode().toString();
-		   log.debug(result);
-		   light.setLastResult(result);
+		   try {
+			   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
+			   var result = ans.getStatusCode().toString();
+			   log.debug(result);
+			   light.addHistory(url, result);
+		   } catch(Exception ex) {
+			   light.addHistory(url, ex.toString());
+		   }
 	   }
 	   
 	   

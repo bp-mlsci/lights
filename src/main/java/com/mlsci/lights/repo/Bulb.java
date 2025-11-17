@@ -38,9 +38,9 @@ public enum Bulb {
 	// helix area
 
 	// d80a21 failed on reload firmware	
-	W("d80b3d", 3, 5, "EC-64-C9-D8-0B-3D", "192.168.68.222", Room.MAIN), // check
-	X("d80936", 2, 5, "EC-64-C9-D8-09-36", "192.168.68.223", Room.MAIN), // check
-	Y("d809db", 4, 5, "EC-64-C9-D8-09-DB", "192.168.68.224", Room.MAIN); // check
+	W("d80b3d", 3, 5, "EC-64-C9-D8-0B-3D", "192.168.68.222", Room.STALLS), // check
+	X("d80936", 2, 5, "EC-64-C9-D8-09-36", "192.168.68.223", Room.STALLS), // check
+	Y("d809db", 4, 5, "EC-64-C9-D8-09-DB", "192.168.68.224", Room.STALLS); // check
 	// bulb Z  save 225
 	
 	private String name, mac, ip;

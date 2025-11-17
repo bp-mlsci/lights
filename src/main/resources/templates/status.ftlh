@@ -4,7 +4,7 @@
 <#list lights as light> 
 <p>${light.toString()}<br></p>
 <#else>
-<p>NO LIGHTS<<br></p>
+<p>NO LIGHTS<br></p>
 </#list>
 
 
@@ -12,7 +12,7 @@
 <#list chase as light> 
 <p>${light.toString()}<br></p>
 <#else>
-<p>NO Chase LIGHTS<<br></p>
+<p>NO Chase LIGHTS<br></p>
 </#list>
 
 

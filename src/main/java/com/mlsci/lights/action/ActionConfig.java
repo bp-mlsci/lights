@@ -30,7 +30,7 @@ public class ActionConfig {
 	Action christmas1() { return christmas("C Christmas1"); }
 	
 	
-	@Bean
+	//@Bean
 	Action chase1() { return new Chase(lightClient, lightRepo, "D Chase 1",
 				List.of(Color.BLUE, Color.RED, Color.BLACK)
 				, 1, Room.MAIN);
@@ -45,7 +45,7 @@ public class ActionConfig {
 
 	
 	
-	@Bean
+	//@Bean
 	Action chase2() {
 		return new Chase(lightClient, lightRepo, "G Chase 2",
 				List.of(Color.INDIGO, Color.ORANGE, Color.BLACK)

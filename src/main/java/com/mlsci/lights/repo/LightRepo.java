@@ -2,7 +2,6 @@ package com.mlsci.lights.repo;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -16,7 +15,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LightRepo {
 	public static final String TESTER = "tester";
-	private Map<Bulb, Light> lights = new HashMap<Bulb, Light>();
+	private Map<Bulb, Light> lights = new TreeMap<Bulb, Light>();
 	private List<Light> chase = null;
 
 	

@@ -17,7 +17,8 @@ public enum Bulb {
 	H("d80995", 6, 4, "EC-64-C9-D8-09-95", "192.168.68.207", Room.MAIN), 
 	I("d80bec", 5, 4, "EC-64-C9-D8-0B-EC", "192.168.68.208", Room.MAIN), 
 	J("d80b5a", 4, 4, "EC-64-C9-D8-0B-5A", "192.168.68.209", Room.MAIN), // was W
-	K("d8096b", 3, 4, "EC-64-C9-D8-09-6B", "192.168.68.210", Room.MAIN), 
+	//K("d8096b", 3, 4, "EC-64-C9-D8-09-6B", "192.168.68.210", Room.MAIN), WONT RESPOND
+	K("d80994", 3, 4, "EC-64-C9-D8-09-94", "192.168.68.210", Room.MAIN),
 	L("d80acc", 2, 4, "EC-64-C9-D8-0A-CC", "192.168.68.211", Room.MAIN), // to label Check
 
 	// back door
@@ -40,7 +41,9 @@ public enum Bulb {
 	// d80a21 failed on reload firmware	
 	W("d80b3d", 3, 5, "EC-64-C9-D8-0B-3D", "192.168.68.222", Room.STALLS), // check
 	X("d80936", 2, 5, "EC-64-C9-D8-09-36", "192.168.68.223", Room.STALLS), // check
-	Y("d809db", 4, 5, "EC-64-C9-D8-09-DB", "192.168.68.224", Room.STALLS); // check
+	Y("d809db", 4, 5, "EC-64-C9-D8-09-DB", "192.168.68.224", Room.STALLS), // check
+	Z("30282b", 4, 5, "C8-C9-A3-30-28-2B", "192.168.68.225", Room.STALLS); // check
+
 	// bulb Z  save 225
 	
 	private String name, mac, ip;

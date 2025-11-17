@@ -1,5 +1,6 @@
 package com.mlsci.lights.action;
 
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,12 +41,16 @@ public class Looper implements Action {
 	void colorAll(Color color, int brightness) {
 		try {
 			var lights = lightRepo.getAll();
+			var delay = 0L;
 			try(var scope = new Concurrent()) {
 				for(var light : lights) {
+					var del = Duration.ofMillis(delay);//stagger
 					scope.fork(() -> {
+						Thread.sleep(del);
 						lightClient.setColor(light, color, "4", brightness);
 						return true;
 					});
+					delay += 20L;
 				}
 				scope.join();
 			}

@@ -13,7 +13,7 @@ class LightRepoTest {
 	
 	@Test
 	void testGetChase() {
-		var lights = lightRepo.getChase();
+		var lights = lightRepo.getChase(Room.MAIN);
 		assertNotNull(lights);
 	}
 	

@@ -1,6 +1,8 @@
 <htmL>
 <body>
-
+<p>
+<a href="/">Home</a>
+</p>
 
 <h2>Errors</br></h2>
 <#list lights as light> 

@@ -39,6 +39,7 @@ public class ActionSchedule {
 			}
 			ra.getActions().add(action);
 		}
+		log.info("There are " + roomActions.size() + " room actions");
 	}
 	
 	
@@ -56,7 +57,17 @@ public class ActionSchedule {
 	}
 
 
-	
+
+	public void pause() {
+		clockEnabled = false;
+	}
+
+
+	public void resume() {
+		clockEnabled = true;
+	}
+
+
 
 
 

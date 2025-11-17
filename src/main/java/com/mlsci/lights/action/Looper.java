@@ -40,7 +40,7 @@ public class Looper implements Action {
 	
 	void colorAll(Color color, int brightness) {
 		try {
-			var lights = lightRepo.getAll();
+			var lights = lightRepo.getAll(getRoom());
 			var delay = 0L;
 			try(var scope = new Concurrent()) {
 				for(var light : lights) {

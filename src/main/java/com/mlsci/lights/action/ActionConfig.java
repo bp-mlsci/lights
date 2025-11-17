@@ -18,6 +18,8 @@ public class ActionConfig {
 	@Autowired LightRepo lightRepo;
 	
 	
+	@Bean
+	Action brightColorsStalls1() { return brightColors("L Bright Colors Stalls", Room.STALLS); }
 	
 	@Bean 
 	Action days1() { return days("A Days1"); }
@@ -85,6 +87,18 @@ public class ActionConfig {
 		return l;
 	}
 	
+	
+	Action brightColors(String name, Room room) { 
+		var l = new Looper(lightClient, lightRepo, name, room);
+		for(int i = 1; i < 3; i++ ) {
+		    l.add(Color.HIGH_NOON, 60, 200);
+		    l.add(Color.HIGH_NOON, 60, 250);
+		    l.add(Color.HIGH_NOON, 60, 200);
+			l.add(Color.RED, 20, 220);
+		    l.add(Color.GREEN, 20, 220);
+		}
+		return l;
+	}
 	
 	
 	Action rainbow(String name) { 

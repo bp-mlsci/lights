@@ -11,11 +11,9 @@ import lombok.ToString;
 @Setter
 @ToString
 public class Light {
-	private String ip;
+	private Bulb bulb;
 	private LightStatus lightStatus;
 	private BulbData bulbData;
-	private int row = -1;
-	private int col = -1;
 	private String lastCommand;
 	private String lastResult;
 }

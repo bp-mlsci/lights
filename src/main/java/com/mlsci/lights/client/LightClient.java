@@ -128,7 +128,7 @@ public class LightClient {
 		   } else if(color.getR() == null) {
 			   setOff(light, transition);
 		   } else {
-			   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() 
+			   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() 
 		   		+ "&g=" + color.getG() + "&b=" + color.getB()  
 		   		+ "&transition=" + transition + "&brightness=" + brightness;
 			   command(light, url);
@@ -149,14 +149,14 @@ public class LightClient {
 	   
 	   // color temp 357 warmest, 151 coolest
 	   public void setWhite(Light light, String transition, int brightness, int color_temp) {
-		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_on?transition=" + transition +
+		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?transition=" + transition +
 				   "&brightness=" + brightness + 
 				   "&color_temp=" + color_temp;
 		   command(light, url);
 	   }
 	   
 	   public void setOff(Light light, String transition) {
-		   var url = "http://" + light.getIp() + "/light/kauf_bulb/turn_off?transition=" + transition;
+		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_off?transition=" + transition;
 		   command(light, url);
 		   
 	   }

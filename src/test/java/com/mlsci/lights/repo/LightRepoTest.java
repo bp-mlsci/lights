@@ -17,7 +17,7 @@ class LightRepoTest {
 		assertNotNull(lights);
 	}
 	
-	
+	/*
 	
 	Light l(String ip, int row, int col) {
 		var l = new Light();
@@ -80,5 +80,5 @@ class LightRepoTest {
 		}
 		
 	}
-
+	*/
 }

@@ -5,6 +5,7 @@ import java.net.InetAddress;
 import org.springframework.stereotype.Component;
 
 import com.mlsci.lights.client.LightClient;
+import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightRepo;
 
@@ -18,47 +19,38 @@ class Discover {
 	private final LightRepo lightRepo;
 	
 	
-	static final String SUBNET = "192.168.68."; 
+	
 	
 	void search() {
 		log.info("Searching for lights");
-		for(int pre = 60; pre < 101; pre+=10) {
-			try {
-				try(Concurrent scope = new Concurrent()) {
-					for(int x = 0; x < 10; x++) {
-						var ip = SUBNET + (pre + x);
-						scope.fork(() -> checkIp(ip));
-					}
-					scope.join();
-				}
-			} catch(Exception ex) {
-				ex.printStackTrace();
-			}
+		
+		for(var bulb : Bulb.values()) {
+			checkIp(bulb);
 		}	
 		log.info("Done Searching for lights");
 	}
 	
 
-	Boolean checkIp(String ip) {
-		if(lightRepo.get(ip) == null) {
+	Boolean checkIp(Bulb bulb) {
+		if(lightRepo.get(bulb) == null) {
 			try {
-				InetAddress inetAddress = InetAddress.getByName(ip);
-				if(inetAddress.isReachable(1000)) {
-					var lightStatus = lightClient.getLightStatus(ip);
+				InetAddress inetAddress = InetAddress.getByName(bulb.getIp());
+				if(inetAddress.isReachable(3000)) {
+					var lightStatus = lightClient.getLightStatus(bulb.getIp());
 					if(lightStatus != null) {
-						System.out.println(ip+"\n");
+						System.out.println(bulb.name()+"\n");
 						System.out.println(lightStatus);
 			
 						var light = new Light();
 						light.setLightStatus(lightStatus);
-						light.setBulbData(lightClient.getBulbData(ip));
-						light.setIp(ip);
+						light.setBulbData(lightClient.getBulbData(bulb.getIp()));
+						light.setBulb(bulb);
 						lightRepo.add(light);
 					} else {
 						//System.out.println(ip + " NULL STATUS ");
 					}
 				} else {
-					//System.out.println(ip + " NO ");
+					System.out.println("Cannot Find Bulb " + bulb.name());
 				}
 			} catch (Exception e) {
 				//System.out.println(ip + " EX ");

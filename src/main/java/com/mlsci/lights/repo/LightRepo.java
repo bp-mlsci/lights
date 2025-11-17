@@ -16,10 +16,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class LightRepo {
 	public static final String TESTER = "tester";
-	private Map<String, Light> lights = new HashMap<String, Light>();
+	private Map<Bulb, Light> lights = new HashMap<Bulb, Light>();
 	private List<Light> chase = null;
 
-	private static final String[][] loc = { 
+	
+	/*
+	public static final String[][] loc = { 
 			{ TESTER, "0", "1", "NA" },
 
 			// window wall cans
@@ -49,19 +51,22 @@ public class LightRepo {
 			// Front Door
 			{ "d80b31", "1", "3", "R", "EC-64-C9-D8-0B-31", "192.168.68.217" }, 
 			{ "d80a43", "0", "3", "S", "EC-64-C9-D8-0A-43", "192.168.68.218" }, 
-			{ "d80ba6", "0", "2", "T" },
-			{ "d8092e", "0", "1", "U" }, 
-			{ "d80b7f", "1", "1", "V" },
+			{ "d80ba6", "0", "2", "T", "EC-64-C9-D8-0B-A6", "192.168.68.219" },
+			{ "d8092e", "0", "1", "U", "EC-64-C9-D8-09-2E", "192.168.68.220" }, // check
+			{ "d80b7f", "1", "1", "V", "EC-64-C9-D8-0B-7F", "192.168.68.221" },
 
 			// helix area
 
 			// d80a21 failed on reload firmware	
-			{ "d80b3d", "3", "5", "W" }, 
-			{ "d80936", "2", "5", "X" },
-			{ "d809db", "4", "5", "Y" },
-
+			{ "d80b3d", "3", "5", "W", "EC-64-C9-D8-0B-3D", "192.168.68.222" }, // check
+			{ "d80936", "2", "5", "X", "EC-64-C9-D8-09-36", "192.168.68.223" }, // check
+			{ "d809db", "4", "5", "Y", "EC-64-C9-D8-09-DB", "192.168.68.224" }, // check
+			// bulb Z  save 225
+			
 	};
-
+	*/
+	
+	/*
 	public void assignLocation(Light light) {
 		if (light.getBulbData() != null) {
 			for (var l : loc) {
@@ -74,17 +79,18 @@ public class LightRepo {
 			}
 		}
 	}
+	*/
 
 	public void add(Light light) {
 		log.info(light.toString());
-		assignLocation(light);
-		lights.put(light.getIp(), light);
+		//assignLocation(light);
+		lights.put(light.getBulb(), light);
 
 		chase = null;
 	}
 
-	public Light get(String ip) {
-		var l = lights.get(ip);
+	public Light get(Bulb bulb) {
+		var l = lights.get(bulb);
 		return l;
 	}
 
@@ -107,19 +113,19 @@ public class LightRepo {
 		int maxRow = 0;
 		int maxCol = 0;
 		for (var light : lights.values()) {
-			if (light.getRow() > maxRow) {
-				maxRow = light.getRow();
+			if (light.getBulb().getRow() > maxRow) {
+				maxRow = light.getBulb().getRow();
 			}
-			if (light.getCol() > maxCol) {
-				maxCol = light.getCol();
+			if (light.getBulb().getCol() > maxCol) {
+				maxCol = light.getBulb().getCol();
 			}
 		}
 		var map = new TreeMap<Double, Light>();
 		double midRow = maxRow / 2.0;
 		double midCol = maxCol / 2.0;
 		for (var light : lights.values()) {
-			double col = light.getCol() - midCol;
-			double row = light.getRow() - midRow;
+			double col = light.getBulb().getCol() - midCol;
+			double row = light.getBulb().getRow() - midRow;
 			double theta = Math.atan2(row, col);
 			map.put(theta, light);
 		}

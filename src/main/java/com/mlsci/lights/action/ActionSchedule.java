@@ -39,7 +39,7 @@ public class ActionSchedule {
 			}
 			ra.getActions().add(action);
 		}
-		log.info("There are " + roomActions.size() + " room actions");
+		System.out.println("There are " + roomActions.size() + " room actions");
 	}
 	
 	

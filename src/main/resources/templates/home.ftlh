@@ -14,6 +14,18 @@
 </p>
 
 
+<p>
+<a href="/allred">All Red</a>
+</p>
+
+<p>
+<a href="/allgreen">All Green</a>
+</p>
+
+<p>
+<a href="/allpurple">All Purple</a>
+</p>
+
 </body>
 
 </html>

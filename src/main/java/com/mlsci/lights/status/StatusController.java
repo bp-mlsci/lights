@@ -5,6 +5,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.mlsci.lights.action.ActionSchedule;
+import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
@@ -38,8 +39,29 @@ class StatusController {
 			lightClient.setWhite(light, "1", 200, 330);
 		}
 		map.put("lights", lightRepo.getAll());
-		return "allwarmwhite";
+		map.put("oneColor", "Warm White");
+		return "allcolor";
 	}
+	
+	
+	String all(Color color, String name, ModelMap map) {
+		for(var light : lightRepo.getAll()) {
+			lightClient.setColor(light,color, "1", 220);
+		}
+		map.put("lights", lightRepo.getAll());
+		map.put("oneColor", name);
+		return "allcolor";
+	}
+	
+	@GetMapping("/allgreen")
+	String allgreen(ModelMap map) { return all(Color.GREEN, "Green", map); }
+	
+	@GetMapping("/allred")
+	String allred(ModelMap map) { return all(Color.RED, "Red", map); }
+	
+	@GetMapping("/allpurple")
+	String allpurple(ModelMap map) { return all(Color.PURPLE, "Purple", map); }
+	
 	
 	@GetMapping("/resume")
 	String resume(ModelMap map) {

@@ -9,6 +9,7 @@ import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightRepo;
 
+import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 @Component
@@ -17,15 +18,27 @@ import lombok.extern.slf4j.Slf4j;
 class Discover {
 	private final LightClient lightClient;
 	private final LightRepo lightRepo;
+	private boolean active = true;
 	
+	@PreDestroy
+	public void pause() {
+		log.info("Pausing discovery");
+		active = false;
+	}
 	
-	
+	public void resume() {
+		active = true;
+	}
 	
 	void search() {
 		log.info("Searching for lights");
 		
 		for(var bulb : Bulb.values()) {
-			checkIp(bulb);
+			if(active) {
+				checkIp(bulb);
+			} else {
+				log.info("Skipping " + bulb.name());
+			}
 		}	
 		log.info("Done Searching for lights");
 	}

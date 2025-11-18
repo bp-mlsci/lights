@@ -50,7 +50,7 @@ public class Looper implements Action {
 						lightClient.setColor(light, color, "4", brightness);
 						return true;
 					});
-					delay += 20L;
+					delay += 35L;
 				}
 				scope.join();
 			}

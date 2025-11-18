@@ -17,7 +17,7 @@ public enum Bulb {
 	H("d80995", 6, 4, "EC-64-C9-D8-09-95", "192.168.68.207", Room.MAIN), 
 	I("d80bec", 5, 4, "EC-64-C9-D8-0B-EC", "192.168.68.208", Room.MAIN), 
 	J("d80b5a", 4, 4, "EC-64-C9-D8-0B-5A", "192.168.68.209", Room.MAIN), // was W
-	//K("d8096b", 3, 4, "EC-64-C9-D8-09-6B", "192.168.68.210", Room.MAIN), WONT RESPOND
+	
 	K("d80994", 3, 4, "EC-64-C9-D8-09-94", "192.168.68.210", Room.MAIN),
 	L("d80acc", 2, 4, "EC-64-C9-D8-0A-CC", "192.168.68.211", Room.MAIN), // to label Check
 
@@ -42,9 +42,18 @@ public enum Bulb {
 	W("d80b3d", 3, 5, "EC-64-C9-D8-0B-3D", "192.168.68.222", Room.STALLS), // check
 	X("d80936", 2, 5, "EC-64-C9-D8-09-36", "192.168.68.223", Room.STALLS), // check
 	Y("d809db", 4, 5, "EC-64-C9-D8-09-DB", "192.168.68.224", Room.STALLS), // check
-	Z("30282b", 4, 5, "C8-C9-A3-30-28-2B", "192.168.68.225", Room.STALLS); // check
+	Z("30282b", 4, 5, "C8-C9-A3-30-28-2B", "192.168.68.225", Room.STALLS), // check
 
 	// bulb Z  save 225
+	
+	AA("d808b2", 4, 5, "EC-64-C9-D8-08-B2", "192.168.68.226", Room.STALLS),
+	AB("d80927", 4, 5, "EC-64-C9-D8-09-27", "192.168.68.227", Room.STALLS),
+	AC("d80ba9", 4, 5, "EC-64-C9-D8-0B-A9", "192.168.68.228", Room.STALLS),
+	AD("d80a55", 4, 5, "EC-64-C9-D8-0A-55", "192.168.68.229", Room.STALLS),
+	AE("d80885", 4, 5, "EC-64-C9-D8-08-85", "192.168.68.230", Room.STALLS),
+	AF("d808cb", 4, 5, "EC-64-C9-D8-08-CB", "192.168.68.231", Room.STALLS),
+	AG("d80ac4", 4, 5, "EC-64-C9-D8-0A-C4", "192.168.68.232", Room.STALLS),
+	AH("d8096b", 3, 4, "EC-64-C9-D8-09-6B", "192.168.68.233", Room.STALLS); //did not  RESPOND reset net
 	
 	private String name, mac, ip;
 	private int row, col;

@@ -46,13 +46,12 @@ public class ActionSchedule {
 	
 	@Scheduled(fixedDelay = 500L)
 	void clockTick() {
-		//log.info("Clock Tick");
+		//log.info("Clock enabled " + clockEnabled);
 		if(clockEnabled) {
 			//log.info("Enabled");
 			for(var ra : roomActions.values()) {
 				ra.clockTick();
 			}
-
 		}
 	}
 

@@ -90,7 +90,9 @@ public class ActionConfig {
 	
 	Action brightColors(String name, Room room) { 
 		var l = new Looper(lightClient, lightRepo, name, room);
-		for(int i = 1; i < 3; i++ ) {
+		for(int i = 1; i < 4; i++ ) {
+			l.add(Color.RED, 20, 60*i);
+		    l.add(Color.GREEN, 20, 60*i);
 		    l.add(Color.HIGH_NOON, 60, 200);
 		    l.add(Color.HIGH_NOON, 60, 250);
 		    l.add(Color.HIGH_NOON, 60, 200);

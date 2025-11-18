@@ -36,7 +36,7 @@ class StatusController {
 	String allwarmwhite(ModelMap map) {
 		actionSchedule.pause();
 		for(var light : lightRepo.getAll()) {
-			lightClient.setWhite(light, "1", 200, 330);
+			lightClient.setWhite(light, "5", 200, 330);
 		}
 		map.put("lights", lightRepo.getAll());
 		map.put("oneColor", "Warm White");
@@ -45,8 +45,9 @@ class StatusController {
 	
 	
 	String all(Color color, String name, ModelMap map) {
+		actionSchedule.pause();
 		for(var light : lightRepo.getAll()) {
-			lightClient.setColor(light,color, "1", 220);
+			lightClient.setColor(light,color, "5", 220);
 		}
 		map.put("lights", lightRepo.getAll());
 		map.put("oneColor", name);

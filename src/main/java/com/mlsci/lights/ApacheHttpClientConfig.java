@@ -4,6 +4,8 @@ import java.time.Duration;
 
 import org.apache.hc.client5.http.impl.classic.CloseableHttpClient;
 import org.apache.hc.client5.http.impl.classic.HttpClientBuilder;
+import org.apache.hc.client5.http.impl.classic.HttpClients;
+import org.apache.hc.client5.http.impl.io.PoolingHttpClientConnectionManager;
 import org.springframework.boot.restclient.RestTemplateBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,7 +24,15 @@ public class ApacheHttpClientConfig {
 	CloseableHttpClient httpClient() {
 		// note that the default pooling and connection management behaviour for 
 		// the apache http client 5.x are good (enough!)
-		return  HttpClientBuilder.create().build();
+		var cm = new PoolingHttpClientConnectionManager();
+		cm.setMaxTotal(200);
+		cm.setDefaultMaxPerRoute(5);
+		//return HttpClients.custom()
+		//		.setConnectionManager(cm)
+		//		.build();
+		return  HttpClientBuilder.create()
+				.setConnectionManager(cm)
+				.build();
 
 	         
 	}

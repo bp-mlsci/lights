@@ -1,14 +1,8 @@
-<htmL>
-<body>
+<@m.page>
 
 <h2>All Lights Set To ${oneColor}</h2>
 <p>Automatic Changes Suspended</p>
 
-<p>
-<a href="/">Home</a>
-</p>
+<@m.home/>
 
-
-</body>
-
-</html>
+</@m.page>

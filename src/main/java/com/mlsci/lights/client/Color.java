@@ -47,6 +47,9 @@ public class Color {
 
 	public static final Color[] COLORS = { RED, ORANGE, YELLOW, GREEN, BLUE, INDIGO, VIOLET };
 
+	public static final Color WARM_WHITE = Color.of(350);
+	public static final Color COLD_WHITE = Color.of(155);
+	public static final Color WHITE = Color.of(250);
 	public static final Color HIGH_NOON = Color.of(340);
 	public static final Color OVERCAST = Color.of(300);
 	public static final Color SUNSET_ORANGE = Color.of(253, 94, 83);

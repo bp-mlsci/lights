@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.mlsci.lights.action.ActionSchedule;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
+import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
 
@@ -103,4 +104,20 @@ class StatusController {
 		map.put("lights", lightRepo.getAll());
 		return "resume";
 	}
+	
+	
+	@GetMapping("/mapping") 
+	String mapping(ModelMap map) {
+		var maxRow = 0;
+		var maxCol = 0;
+		for(var b : Bulb.values()) {
+			maxRow = Math.max(maxRow, b.getRow());
+			maxCol = Math.max(maxCol, b.getCol());
+		}
+		var grid = new Grid(maxRow, maxCol);
+		for(var bulb : Bulb.values()) { grid.add(bulb, lightRepo.get(bulb)); }
+		map.put("grid", grid);
+		return "mapping";
+	}
+	
 }

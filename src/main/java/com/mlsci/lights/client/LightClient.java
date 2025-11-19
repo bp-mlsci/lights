@@ -10,6 +10,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
 import com.mlsci.lights.repo.Light;
+import com.mlsci.lights.repo.LightState;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -131,20 +132,28 @@ public class LightClient {
 			   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() 
 		   		+ "&g=" + color.getG() + "&b=" + color.getB()  
 		   		+ "&transition=" + transition + "&brightness=" + brightness;
-			   command(light, url);
+			   if(command(light, url)) {
+				   light.setBrightness(brightness);
+				   light.setLightState(LightState.RGB);
+				   light.setRed(color.getR());
+				   light.setGreen(color.getG());
+				   light.setBlue(color.getB());
+			   }
 		   }
 	   }
 
 
 
-	   private void command(Light light, String url) {
+	   private boolean command(Light light, String url) {
 		   try {
 			   var ans = restTemplate.exchange(url, HttpMethod.GET, null, String.class);
 			   var result = ans.getStatusCode().toString();
 			   log.debug(result);
 			   light.addHistory(url, result);
+			   return ans.getStatusCode().is2xxSuccessful();
 		   } catch(Exception ex) {
 			   light.addHistory(url, ex.toString());
+			   return false; 
 		   }
 	   }
 	   
@@ -155,13 +164,18 @@ public class LightClient {
 		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?transition=" + transition +
 				   "&brightness=" + brightness + 
 				   "&color_temp=" + color_temp;
-		   command(light, url);
+		   if(command(light, url)) {
+			   light.setLightState(LightState.WHITE);
+			   light.setBrightness(brightness);
+			   light.setColorTemp(color_temp);
+		   }
 	   }
 	   
 	   public void setOff(Light light, String transition) {
 		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_off?transition=" + transition;
-		   command(light, url);
-		   
+		   if( command(light, url) ) {
+			   light.setLightState(LightState.OFF);
+		   }
 	   }
 	
 }

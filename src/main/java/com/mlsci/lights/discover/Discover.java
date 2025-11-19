@@ -9,6 +9,7 @@ import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightRepo;
 
+import jakarta.annotation.PostConstruct;
 import jakarta.annotation.PreDestroy;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -24,6 +25,16 @@ class Discover {
 	public void pause() {
 		log.info("Pausing discovery");
 		active = false;
+	}
+	
+	
+	@PostConstruct 
+	public void dummy() {
+		for(var bulb : Bulb.values()) {
+			var l = new Light();
+			l.setBulb(bulb);
+			lightRepo.add(l);
+		}
 	}
 	
 	public void resume() {

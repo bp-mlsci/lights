@@ -4,6 +4,10 @@
 <a href="/status">See Status</a>
 </p>
 
+<p>
+<a href="/mapping">Mapping</a>
+</p>
+
 <#list colorOptions as colorOption> 
 <p>${colorOption.label} 
 <#list brightOptions as brightOption>

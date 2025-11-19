@@ -15,6 +15,9 @@
 </#list>
 </#list>
 
+<#list rooms as room> 
+<p><a href="/room/${room.name()}">Room ${room.name()}</a></p>
+</#list>
 <p>
 <a href="/allwarmwhite">All Warm White</a>
 </p>

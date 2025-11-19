@@ -33,6 +33,7 @@ class StatusController {
 	String home(ModelMap map) {
 		map.put("colorOptions",ColorOption.values());
 		map.put("brightOptions", BrightOption.values());
+		map.put("rooms", Room.values());
 		return "home";
 	}
 	
@@ -62,6 +63,33 @@ class StatusController {
 		
 		map.put("oneColor", colorOption.getLabel()  +  " " + brightOption.getLabel());
 		return "allColor";
+	}
+	
+	@GetMapping("/room/{room}")
+	String room(ModelMap map, @PathVariable Room room) {
+		map.put("room", room);
+		map.put("colorOptions",ColorOption.values());
+		map.put("brightOptions", BrightOption.values());
+		map.put("rooms", Room.values());
+		return "room";
+	}
+	
+	@GetMapping("/roomall/{room}/{colorOption}/{brightOption}")
+	String roomAll(ModelMap map, @PathVariable Room room,
+			@PathVariable ColorOption colorOption,
+			@PathVariable BrightOption brightOption) {
+		map.put("room", room);
+		for(var light : lightRepo.getAll(room)) {
+			if(lightClient.setColor(light,colorOption.getColor(), 
+					"5", brightOption.getBrightness())) {
+				light.setLightMode(LightMode.MANUAL);
+			}
+		}
+		map.put("oneColor", 
+				"Room "+ room.name() + " " +
+				colorOption.getLabel()  +  " " + brightOption.getLabel());
+
+		return "allcolor";
 	}
 	
 	@GetMapping("/alloff")

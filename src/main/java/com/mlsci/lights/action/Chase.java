@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
+import com.mlsci.lights.repo.LightMode;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
 
@@ -45,7 +46,7 @@ public class Chase implements Action {
 			setLights(index);
 			currentStep.setIndex(index+offset);
 			currentStep.setCount(currentStep.getCount() + 1);
-			currentStep.setEnded(currentStep.getCount() > (lightRepo.getChase(getRoom()).size() * 5));
+			currentStep.setEnded(currentStep.getCount() > (lightRepo.getChase(getRoom(), LightMode.AUTO).size() * 5));
 			currentStep.setUntilTimeMillis(System.currentTimeMillis() + 1200L);
 		} else {
 			log.info(name + " Chase No Change " + currentStep.getIndex());
@@ -55,7 +56,7 @@ public class Chase implements Action {
 
 
 	void setLights(int index) {
-		var chase = lightRepo.getChase(getRoom());
+		var chase = lightRepo.getChase(getRoom(), LightMode.AUTO);
 		if(chase.size() == 0) {
 			return;
 		}

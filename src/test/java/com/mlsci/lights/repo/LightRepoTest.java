@@ -1,10 +1,8 @@
 package com.mlsci.lights.repo;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import org.junit.jupiter.api.Test;
-
-import com.mlsci.lights.client.BulbData;
 
 class LightRepoTest {
 
@@ -13,7 +11,7 @@ class LightRepoTest {
 	
 	@Test
 	void testGetChase() {
-		var lights = lightRepo.getChase(Room.MAIN);
+		var lights = lightRepo.getChase(Room.MAIN, LightMode.AUTO);
 		assertNotNull(lights);
 	}
 	

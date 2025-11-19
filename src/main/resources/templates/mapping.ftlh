@@ -27,14 +27,17 @@ th, td {
 <tr>
 <#list gridRow.gridItems as gridItem>
 <td>
-<#if gridItem.bulb??>
-${gridItem.bulb.description}
- <a target="_blank" href="http://${gridItem.bulb.ip}">
- <#if gridItem.light??><i>online</i><#else><i>offline</i></#if>
+<#if gridItem.light??>
+<#assign light= gridItem.light/>
+<#assign bulb = gridItem.light.bulb/>
+<b>${bulb.name()}</b><br>
+${bulb.description}
+ <a target="_blank" href="http://${bulb.ip}">
+ ${light.lightMode.name()}
  </a>
- <#if gridItem.light??>
-   <#assign errs = gridItem.light.errorCount />
-   <#assign light = gridItem.light>
+
+   <#assign errs = light.errorCount />
+   
    <#if errs gt 0 > <span style="color:red;">${errs} errors</span></#if>
    <#assign lstate = light.getLightState().name() >
    <#switch lstate>
@@ -44,7 +47,7 @@ ${gridItem.bulb.description}
    	 <#case 'RGB'> <span ><i>rgb(${light.red}, ${light.green}, ${light.blue}) <span style="background-color:rgb(${light.red}, ${light.green}, ${light.blue});">...</span> bright ${light.brightness}</i></span><#break>
    </#switch>
  </#if> 
-</#if>
+
 </td>
 </#list>
 </tr>

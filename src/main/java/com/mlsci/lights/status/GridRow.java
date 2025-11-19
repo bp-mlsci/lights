@@ -18,9 +18,8 @@ public class GridRow {
 		}
 	}
 
-	public void add(Bulb bulb, Light light) {
-		var gridItem = gridItems.get(bulb.getCol());
-		gridItem.setBulb(bulb);
+	public void add( Light light) {
+		var gridItem = gridItems.get(light.getBulb().getCol());
 		gridItem.setLight(light);
 	}
 

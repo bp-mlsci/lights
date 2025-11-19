@@ -9,26 +9,29 @@ import java.util.function.Predicate;
 
 import org.springframework.stereotype.Component;
 
+import com.mlsci.lights.status.Grid;
+
 import lombok.extern.slf4j.Slf4j;
 
 @Component
 @Slf4j
 public class LightRepo {
-	public static final String TESTER = "tester";
-	private Map<Bulb, Light> lights = new TreeMap<Bulb, Light>();
+	private Map<Bulb, Light> lights = init();
 	private List<Light> chase = null;
+	private Grid grid;
 
-	
-
-
-	public void add(Light light) {
-		log.info(light.toString());
-		//assignLocation(light);
-		lights.put(light.getBulb(), light);
-
-		chase = null;
+	static TreeMap<Bulb, Light> init() {
+		var map = new TreeMap<Bulb, Light>();
+		for(var bulb : Bulb.values()) {
+			Light l = new Light();
+			l.setBulb(bulb);
+			map.put(bulb, l);
+		}
+		return map;
 	}
 
+
+	
 	public Light get(Bulb bulb) {
 		var l = lights.get(bulb);
 		return l;
@@ -48,11 +51,11 @@ public class LightRepo {
 		return list;
 	}
 
-	public void generateChase(Room room) {
+	public void generateChase(Room room, LightMode lightMode) {
 		var list = new ArrayList<Light>();
 		int maxRow = 0;
 		int maxCol = 0;
-		var filt = getAll(room);
+		var filt = getAll(room, lightMode);
 		for (var light : filt) {
 			if (light.getBulb().getRow() > maxRow) {
 				maxRow = light.getBulb().getRow();
@@ -76,9 +79,10 @@ public class LightRepo {
 		chase = list;
 	}
 
-	public List<Light> getChase(Room room) {
+	
+	public List<Light> getChase(Room room, LightMode lightMode) {
 		if (chase == null) {
-			generateChase(room);
+			generateChase(room, lightMode);
 		}
 		return chase;
 	}
@@ -87,4 +91,25 @@ public class LightRepo {
 		return getFilter(l -> room.equals(l.getBulb().getRoom()));
 	}
 
+	public List<Light> getAll(Room room, LightMode lightMode) {		
+		return getFilter(l -> room.equals(l.getBulb().getRoom()) &&
+				lightMode.equals(l.getLightMode()));
+	}
+	
+	public Grid getGrid() {
+		if( grid == null) {
+			var maxRow = 0;
+			var maxCol = 0;
+			for(var b : Bulb.values()) {
+				maxRow = Math.max(maxRow, b.getRow());
+				maxCol = Math.max(maxCol, b.getCol());
+			}
+			grid = new Grid(maxRow, maxCol);
+			for(var bulb : Bulb.values()) { 
+				grid.add(lights.get(bulb)); 
+			}
+		}
+		return grid;
+	}
+	
 }

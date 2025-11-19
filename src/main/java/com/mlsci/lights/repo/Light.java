@@ -2,8 +2,7 @@ package com.mlsci.lights.repo;
 
 import java.time.LocalDateTime;
 
-import com.mlsci.lights.client.BulbData;
-import com.mlsci.lights.client.LightStatus;
+
 
 import lombok.Getter;
 import lombok.Setter;
@@ -14,8 +13,7 @@ import lombok.ToString;
 @ToString
 public class Light {
 	private Bulb bulb;
-	private LightStatus lightStatus;
-	private BulbData bulbData;
+	private LightMode lightMode = LightMode.AUTO;
 	private History[] history = new History[10];
 	private LightState lightState = LightState.NEW;
 	private int brightness;

@@ -1,4 +1,4 @@
-package com.mlsci.lights.discover;
+package com.mlsci.lights;
 
 import java.util.ArrayList;
 import java.util.List;

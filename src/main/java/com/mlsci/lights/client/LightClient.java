@@ -123,11 +123,11 @@ public class LightClient {
 
 
 
-	   public void setColor(Light light, Color color, String transition, int brightness) {
+	   public boolean setColor(Light light, Color color, String transition, int brightness) {
 		   if(color.getColor_temp() != null) {
-			   setWhite(light, transition, brightness, color.getColor_temp());
+			   return setWhite(light, transition, brightness, color.getColor_temp());
 		   } else if(color.getR() == null) {
-			   setOff(light, transition);
+			   return setOff(light, transition);
 		   } else {
 			   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?r="+color.getR() 
 		   		+ "&g=" + color.getG() + "&b=" + color.getB()  
@@ -138,6 +138,9 @@ public class LightClient {
 				   light.setRed(color.getR());
 				   light.setGreen(color.getG());
 				   light.setBlue(color.getB());
+				   return true;
+			   } else {
+				   return false;
 			   }
 		   }
 	   }
@@ -160,7 +163,7 @@ public class LightClient {
 	   
 	   
 	   // color temp 357 warmest, 151 coolest
-	   public void setWhite(Light light, String transition, int brightness, int color_temp) {
+	   public boolean setWhite(Light light, String transition, int brightness, int color_temp) {
 		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_on?transition=" + transition +
 				   "&brightness=" + brightness + 
 				   "&color_temp=" + color_temp;
@@ -168,13 +171,19 @@ public class LightClient {
 			   light.setLightState(LightState.WHITE);
 			   light.setBrightness(brightness);
 			   light.setColorTemp(color_temp);
+			   return true;
+		   } else {
+			   return false;
 		   }
 	   }
 	   
-	   public void setOff(Light light, String transition) {
+	   public boolean setOff(Light light, String transition) {
 		   var url = "http://" + light.getBulb().getIp() + "/light/kauf_bulb/turn_off?transition=" + transition;
 		   if( command(light, url) ) {
 			   light.setLightState(LightState.OFF);
+			   return true;
+		   } else {
+			   return false;
 		   }
 	   }
 	

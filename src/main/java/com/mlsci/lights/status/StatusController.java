@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.mlsci.lights.action.ActionSchedule;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
-import com.mlsci.lights.repo.Bulb;
+import com.mlsci.lights.repo.LightMode;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
 
@@ -24,7 +24,7 @@ class StatusController {
 	@GetMapping("/status")
 	String status(ModelMap map) {
 		
-		map.put("chase", lightRepo.getChase(Room.MAIN));
+		map.put("chase", lightRepo.getChase(Room.MAIN, LightMode.AUTO));
 		map.put("lights", lightRepo.getAll());
 		return "status";
 	}
@@ -38,9 +38,11 @@ class StatusController {
 	
 	@GetMapping("/allwarmwhite")
 	String allwarmwhite(ModelMap map) {
-		actionSchedule.pause();
+		
 		for(var light : lightRepo.getAll()) {
-			lightClient.setWhite(light, "5", 250, 330);
+			if(lightClient.setWhite(light, "5", 250, 330)) {
+				light.setLightMode(LightMode.MANUAL);
+			}
 		}
 		map.put("lights", lightRepo.getAll());
 		map.put("oneColor", "Warm White");
@@ -50,10 +52,12 @@ class StatusController {
 	@GetMapping("/all/{colorOption}/{brightOption}")
 	String all(ModelMap map, @PathVariable ColorOption colorOption,
 			@PathVariable BrightOption brightOption) {
-		actionSchedule.pause();
+		
 		for(var light : lightRepo.getAll()) {
-			lightClient.setColor(light,colorOption.getColor(), 
-					"5", brightOption.getBrightness());
+			if(lightClient.setColor(light,colorOption.getColor(), 
+					"5", brightOption.getBrightness())) {
+				light.setLightMode(LightMode.MANUAL);
+			}
 		}
 		
 		map.put("oneColor", colorOption.getLabel()  +  " " + brightOption.getLabel());
@@ -62,9 +66,10 @@ class StatusController {
 	
 	@GetMapping("/alloff")
 	String allwarmoff(ModelMap map) {
-		actionSchedule.pause();
 		for(var light : lightRepo.getAll()) {
-			lightClient.setOff(light, "5");
+			if( lightClient.setOff(light, "5") ) {
+				light.setLightMode(LightMode.MANUAL);
+			}
 		}
 		map.put("lights", lightRepo.getAll());
 		map.put("oneColor", "OFF");
@@ -99,7 +104,9 @@ class StatusController {
 	
 	@GetMapping("/resume")
 	String resume(ModelMap map) {
-		actionSchedule.resume();
+		for(var light: lightRepo.getAll()) {
+			light.setLightMode(LightMode.AUTO);
+		}
 	
 		map.put("lights", lightRepo.getAll());
 		return "resume";
@@ -108,15 +115,7 @@ class StatusController {
 	
 	@GetMapping("/mapping") 
 	String mapping(ModelMap map) {
-		var maxRow = 0;
-		var maxCol = 0;
-		for(var b : Bulb.values()) {
-			maxRow = Math.max(maxRow, b.getRow());
-			maxCol = Math.max(maxCol, b.getCol());
-		}
-		var grid = new Grid(maxRow, maxCol);
-		for(var bulb : Bulb.values()) { grid.add(bulb, lightRepo.get(bulb)); }
-		map.put("grid", grid);
+		map.put("grid", lightRepo.getGrid());
 		return "mapping";
 	}
 	

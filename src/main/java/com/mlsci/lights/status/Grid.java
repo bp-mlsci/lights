@@ -19,8 +19,8 @@ public class Grid {
 		}
 	}
 	
-	public void add(Bulb bulb, Light light) {
-		gridRows.get(bulb.getRow()).add(bulb, light);	
+	public void add( Light light) {
+		gridRows.get(light.getBulb().getRow()).add(light);	
 	}
 
 	

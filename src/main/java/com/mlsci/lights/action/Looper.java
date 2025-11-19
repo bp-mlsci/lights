@@ -4,9 +4,10 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.mlsci.lights.Concurrent;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
-import com.mlsci.lights.discover.Concurrent;
+import com.mlsci.lights.repo.LightMode;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
 
@@ -40,7 +41,7 @@ public class Looper implements Action {
 	
 	void colorAll(Color color, int brightness) {
 		try {
-			var lights = lightRepo.getAll(getRoom());
+			var lights = lightRepo.getAll(getRoom(), LightMode.AUTO);
 			var delay = 0L;
 			try(var scope = new Concurrent()) {
 				for(var light : lights) {

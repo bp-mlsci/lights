@@ -30,7 +30,7 @@ th, td {
 <#if gridItem.light??>
 <#assign light= gridItem.light/>
 <#assign bulb = light.bulb/>
-<b><a href="/light/${bulb.name()}"><b>${bulb.name()}</b></a><br>
+<a href="/light/${bulb.name()}"><b>${bulb.name()}</b></a><br>
 ${bulb.description}
 
  ${light.lightMode.name()}

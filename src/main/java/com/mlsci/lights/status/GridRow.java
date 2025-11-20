@@ -3,7 +3,6 @@ package com.mlsci.lights.status;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.Light;
 
 public class GridRow {

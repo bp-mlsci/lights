@@ -29,12 +29,11 @@ th, td {
 <td>
 <#if gridItem.light??>
 <#assign light= gridItem.light/>
-<#assign bulb = gridItem.light.bulb/>
-<b>${bulb.name()}</b><br>
+<#assign bulb = light.bulb/>
+<b><a href="/light/${bulb.name()}"><b>${bulb.name()}</b></a><br>
 ${bulb.description}
- <a target="_blank" href="http://${bulb.ip}">
+
  ${light.lightMode.name()}
- </a>
 
    <#assign errs = light.errorCount />
    

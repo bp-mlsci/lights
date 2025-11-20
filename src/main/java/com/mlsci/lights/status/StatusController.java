@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import com.mlsci.lights.action.ActionSchedule;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
+import com.mlsci.lights.repo.Bulb;
 import com.mlsci.lights.repo.LightMode;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
@@ -74,6 +75,61 @@ class StatusController {
 		return "room";
 	}
 	
+	
+	@GetMapping("/light/{bulb}")
+	String light(ModelMap map, @PathVariable Bulb bulb) {
+
+		map.put("colorOptions",ColorOption.values());
+		map.put("brightOptions", BrightOption.values());
+		map.put("light", lightRepo.get(bulb));
+		return "light";
+	}
+	
+	
+	
+	@GetMapping("/roomoff/{room}")
+	String roomoff(ModelMap map, @PathVariable Room room) {
+		for(var light : lightRepo.getAll(room)) {
+			if( lightClient.setOff(light, "5") ) {
+				light.setLightMode(LightMode.MANUAL);
+			}
+		}
+		map.put("oneColor", room.getLabel() + " Off");
+		return "allColor";
+	}
+	
+	
+	@GetMapping("/lightoff/{bulb}")
+	String lightoff(ModelMap map, @PathVariable Bulb bulb) {
+		var light = lightRepo.get(bulb);
+		if( lightClient.setOff(light, "5") ) {
+			light.setLightMode(LightMode.MANUAL);
+		}
+		map.put("oneColor", bulb.getDescription() + " Off");
+		return "allColor";
+	}
+	
+	@GetMapping("/roomresume/{room}")
+	String roomresume(ModelMap map, @PathVariable Room room) {
+		for(var light : lightRepo.getAll(room)) {
+			light.setLightMode(LightMode.AUTO);
+		}
+		map.put("oneColor", room.getLabel() + " Resumed Automatic");
+		return "allColor";
+	}
+
+	
+	@GetMapping("/lightresume/{bulb}")
+	String lightresume(ModelMap map, @PathVariable Bulb bulb) {
+		var light = lightRepo.get(bulb);
+		light.setLightMode(LightMode.AUTO);
+		
+		map.put("oneColor", bulb.getDescription() + " Resumed Automatic");
+		return "allColor";
+	}
+
+	
+	
 	@GetMapping("/roomall/{room}/{colorOption}/{brightOption}")
 	String roomAll(ModelMap map, @PathVariable Room room,
 			@PathVariable ColorOption colorOption,
@@ -87,6 +143,24 @@ class StatusController {
 		}
 		map.put("oneColor", 
 				"Room "+ room.name() + " " +
+				colorOption.getLabel()  +  " " + brightOption.getLabel());
+
+		return "allcolor";
+	}
+	
+	@GetMapping("/lighton/{bulb}/{colorOption}/{brightOption}")
+	String lighton(ModelMap map, @PathVariable Bulb bulb,
+			
+			@PathVariable ColorOption colorOption,
+			@PathVariable BrightOption brightOption) {
+
+		var light = lightRepo.get(bulb);
+		if(lightClient.setColor(light,colorOption.getColor(), 
+				"5", brightOption.getBrightness())) {
+			light.setLightMode(LightMode.MANUAL);
+		}
+		map.put("oneColor", 
+				"Light "+ light.getBulb().name() + " " +
 				colorOption.getLabel()  +  " " + brightOption.getLabel());
 
 		return "allcolor";

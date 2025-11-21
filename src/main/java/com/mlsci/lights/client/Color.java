@@ -58,6 +58,17 @@ public class Color {
 
 
 	public static final Color[] CHRISTMAS = { RED, GREEN };
+
+
+
+
+	// #112233 hex digits leading #
+	public static Color ofHex(String colorHex) {
+		var red = Integer.parseInt(colorHex.substring(1,3), 16);
+		var green = Integer.parseInt(colorHex.substring(3,5), 16);
+		var blue = Integer.parseInt(colorHex.substring(5,7), 16);
+		return Color.of(red, green, blue);
+	}
 	
 	
 	

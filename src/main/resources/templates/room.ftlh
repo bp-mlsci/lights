@@ -1,18 +1,11 @@
-<@m.page>
+<@m.page title="${room.label} Light Control">
 
-<h3>${room.label}</h3>
+<@m.colorControl href="/roomall/${room.name()}">
 
-<#list colorOptions as colorOption> 
-<p>${colorOption.label} 
-<#list brightOptions as brightOption>
- <a href="/roomall/${room.name()}/${colorOption.name()}/${brightOption.name()}">${brightOption.label}</a>
-</#list>
-</#list>
+<@m.link label="All Lights In ${room.label} Off" href="/roomoff/${room.name()}"/>
 
-<p><a href="/roomoff/${room.name()}">${room.label} Off</a></p>
+<@m.link label="All Lights In ${room.label} On Automatic Schedule" href="/roomresume/${room.name()}"/>
 
-
-<p><a href="/roomresume/${room.name()}">${room.label} Resume Automatic</a></p>
-
+</@m.colorControl>
 
 </@m.page>

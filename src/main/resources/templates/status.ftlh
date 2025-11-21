@@ -1,8 +1,4 @@
-<htmL>
-<body>
-<p>
-<a href="/">Home</a>
-</p>
+<@m.page title="Lights Status">
 
 <h2>Errors</br></h2>
 <#list lights as light> 
@@ -37,6 +33,4 @@
 
 
 
-</body>
-
-</html>
+</@m.page>

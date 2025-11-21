@@ -1,4 +1,4 @@
-<@m.page>
+<@m.page title="Map of Lights">
 
 <style>
 table {
@@ -10,17 +10,11 @@ th, td {
   border-width: 1px;
   border-color: lightgray;
   padding: 6px;
+  vertical-align: top;
 }
 </style>
 
 
-<@m.home/>
-
-
-
-
-
-<h3>Lights Map</h3>
 
 <table>
 <#list grid.gridRows as gridRow>
@@ -30,10 +24,9 @@ th, td {
 <#if gridItem.light??>
 <#assign light= gridItem.light/>
 <#assign bulb = light.bulb/>
-<a href="/light/${bulb.name()}"><b>${bulb.name()}</b></a><br>
-${bulb.description}
+<@m.link href="/light/${bulb.name()}" label=bulb.display/> <br>
 
- ${light.lightMode.name()}
+ ${light.lightMode.label}
 
    <#assign errs = light.errorCount />
    
@@ -43,7 +36,7 @@ ${bulb.description}
    	 <#case 'NEW'> <i>new</i><#break>
    	 <#case 'WHITE'> <i>White temp ${light.colorTemp} bright ${light.brightness}</i><#break>
    	 <#case 'OFF'> <i>Off</i><#break>
-   	 <#case 'RGB'> <span ><i>rgb(${light.red}, ${light.green}, ${light.blue}) <span style="background-color:rgb(${light.red}, ${light.green}, ${light.blue});">...</span> bright ${light.brightness}</i></span><#break>
+   	 <#case 'RGB'> <span ><i><span style="border-color:black; border-style: solid;border-width: 1px; background-color:rgb(${light.red},${light.green},${light.blue});">&nbsp;&nbsp;&nbsp;</span> bright ${light.brightness}</i></span><#break>
    </#switch>
  </#if> 
 

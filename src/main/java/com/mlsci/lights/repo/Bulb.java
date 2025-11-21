@@ -68,4 +68,9 @@ public enum Bulb {
 		this.description = description;
 	}	
 	
+	
+	public String getDisplay() {
+		return name() + " - " + description;
+	}
+	
 }

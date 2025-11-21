@@ -1,6 +1,7 @@
 package com.mlsci.lights.status;
 
 import com.mlsci.lights.client.Color;
+import com.mlsci.lights.client.RandomColor;
 
 import lombok.Getter;
 
@@ -15,7 +16,8 @@ public enum ColorOption {
 	CYAN("Cyan", Color.CYAN, "cyan"), // G B
 	WARM_WHITE("Warm White", Color.WARM_WHITE, "rgb(239, 235, 216)"),
 	COLD_WHITE("Cold White", Color.COLD_WHITE, "rgb(212, 235, 255)"),
-	WHITE("White", Color.WHITE, "white");
+	WHITE("White", Color.WHITE, "white"),
+	RANDOM("Random", new RandomColor(), "grey");
 	
 	
 	private String label;

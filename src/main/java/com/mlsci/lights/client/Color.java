@@ -17,7 +17,7 @@ public class Color {
 	private Integer color_temp;
 
 
-	
+	public Color realize() { return this; }
 
 	public static Color of(int red, int green, int blue) {
 		var c = new Color();

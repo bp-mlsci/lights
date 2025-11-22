@@ -16,4 +16,8 @@ public class RandomColor extends Color {
 	
 	@Override 
 	public Integer getB() { return rnd(); }
+	
+	
+	@Override // when color used make it a static choice
+	public Color realize() { return Color.of(rnd(), rnd(), rnd()); }
 }

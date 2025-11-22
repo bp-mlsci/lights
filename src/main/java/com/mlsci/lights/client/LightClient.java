@@ -81,7 +81,8 @@ public class LightClient {
 
 
 
-	   public boolean setColor(Light light, Color color, String transition, int brightness) {
+	   public boolean setColor(Light light, Color acolor, String transition, int brightness) {
+		   var color = acolor.realize(); // in case color is dynamic lke randomColor, get non changing version
 		   if(color.getColor_temp() != null) {
 			   return setWhite(light, transition, brightness, color.getColor_temp());
 		   } else if(color.getR() == null) {

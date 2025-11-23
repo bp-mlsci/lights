@@ -17,7 +17,7 @@
 </div>
 <h3 class="pt-3">${title}</h3>
 <#nested>
-
+<br>
 <img src="/logo.jpg"/>
 </div> <!-- END BOOTSTAP CONTAINER -->
 <script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script> <#--  MAKE BOOTSTRAP GO -->

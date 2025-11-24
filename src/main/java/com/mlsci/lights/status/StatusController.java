@@ -1,23 +1,30 @@
 package com.mlsci.lights.status;
 
+import java.util.Collection;
+import java.util.function.Predicate;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.mlsci.lights.NiceConcurrent;
 import com.mlsci.lights.client.Color;
 import com.mlsci.lights.client.LightClient;
 import com.mlsci.lights.repo.Bulb;
+import com.mlsci.lights.repo.Light;
 import com.mlsci.lights.repo.LightMode;
 import com.mlsci.lights.repo.LightRepo;
 import com.mlsci.lights.repo.Room;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 
 
 @Controller
+@Slf4j
 @RequiredArgsConstructor
 class StatusController {
 	private final LightRepo lightRepo;
@@ -57,15 +64,7 @@ class StatusController {
 	@GetMapping("/allwarmwhite")
 	String allwarmwhite(ModelMap map) {
 		data(map);
-		Thread.startVirtualThread(() -> {
-					for(var light : lightRepo.getAll()) {
-						if(lightClient.setWhite(light, "5", 250, 330)) {
-							light.setLightMode(LightMode.MANUAL);
-					}
-				}
-			}
-		);
-		map.put("lights", lightRepo.getAll());
+		launch(lightRepo.getAll(), l -> lightClient.setWhite(l, "5", 250, 330));
 		return resultHome(map,"All Lights Set To Warm White");
 	}
 	
@@ -98,28 +97,37 @@ class StatusController {
 	String all(ModelMap map, @PathVariable ColorOption colorOption,
 			@PathVariable BrightOption brightOption) {
 		data(map);
-		Thread.startVirtualThread( () -> {
-			for(var light : lightRepo.getAll()) {
-				if(lightClient.setColor(light,colorOption.getColor(), 
-					"5", brightOption.getBrightness())) {
+		launch(lightRepo.getAll(), l -> lightClient.setColor(l,colorOption.getColor(),"5",  brightOption.getBrightness()));
+		return resultHome(map, "All Lights" + colorBright(colorOption, brightOption));
+	}
+	
+	
+	
+	
+	
+	
+	void launch(Collection<Light> lights, Predicate<Light> function) {
+		Thread.startVirtualThread(() ->{
+			try(var scope = new NiceConcurrent(20L)) {
+				for(var light : lights) {
+					if(function.test(light)) {
 						light.setLightMode(LightMode.MANUAL);
 					}
 				}
+				scope.join();
+			} catch (Exception ex) {
+				log.error("launch err", ex);
 			}
-		);
-		return resultHome(map, "All Lights" + colorBright(colorOption, brightOption));
+		});
 	}
+	
 	
 	
 	@GetMapping("/rgb/all")
 	String allrgb(ModelMap map, @RequestParam String colorHex, @RequestParam int bright) {
 		data(map);
 		var color = Color.ofHex(colorHex);
-		for(var light : lightRepo.getAll()) {
-			if(lightClient.setColor(light,color,"5", bright)) {
-				light.setLightMode(LightMode.MANUAL);
-			}
-		}
+		launch(lightRepo.getAll(), x -> lightClient.setColor(x,color,"5", bright));
 		return resultHome(map, "All Lights Set To Custom Color");
 	}
 	
@@ -145,11 +153,7 @@ class StatusController {
 	@GetMapping("/roomoff/{room}")
 	String roomoff(ModelMap map, @PathVariable Room room) {
 		data(map);
-		for(var light : lightRepo.getAll(room)) {
-			if( lightClient.setOff(light, "5") ) {
-				light.setLightMode(LightMode.MANUAL);
-			}
-		}
+		launch(lightRepo.getAll(room), l ->  lightClient.setOff(l, "5"));
 		return resultRoom(map, "All lights in " + room.getLabel() + " turned off.", room);
 	}
 	
@@ -191,12 +195,8 @@ class StatusController {
 			@PathVariable BrightOption brightOption) {
 		data(map);
 		map.put("room", room);
-		for(var light : lightRepo.getAll(room)) {
-			if(lightClient.setColor(light,colorOption.getColor(), 
-					"5", brightOption.getBrightness())) {
-				light.setLightMode(LightMode.MANUAL);
-			}
-		}
+		launch(lightRepo.getAll(room), l -> lightClient.setColor(l,colorOption.getColor(), 
+					"5", brightOption.getBrightness()));
 		return resultRoom(map, "All Lights In " + room.getLabel() + " are set to " + colorBright(colorOption, brightOption), room); 
 	}
 	
@@ -208,11 +208,7 @@ class StatusController {
 		data(map);
 		var color = Color.ofHex(colorHex);
 		map.put("room", room);
-		for(var light : lightRepo.getAll(room)) {
-			if(lightClient.setColor(light,color, "5", bright)) {
-				light.setLightMode(LightMode.MANUAL);
-			}
-		}
+		launch(lightRepo.getAll(room), l -> lightClient.setColor(l,color, "5", bright));
 		return resultRoom(map, "All Lights In " + room.getLabel() + " are set to custom color.", room); 
 	}
 	
@@ -245,17 +241,10 @@ class StatusController {
 	
 	
 	
-	
-	
 	@GetMapping("/alloff")
 	String alloff(ModelMap map) {
 		data(map);
-		for(var light : lightRepo.getAll()) {
-			if( lightClient.setOff(light, "5") ) {
-				light.setLightMode(LightMode.MANUAL);
-			}
-		}
-		map.put("lights", lightRepo.getAll());
+		launch(lightRepo.getAll(), l -> lightClient.setOff(l, "5") );
 		return resultHome(map, "All lights have been turned off.");
 	}
 	

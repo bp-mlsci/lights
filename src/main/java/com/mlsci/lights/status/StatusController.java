@@ -57,11 +57,14 @@ class StatusController {
 	@GetMapping("/allwarmwhite")
 	String allwarmwhite(ModelMap map) {
 		data(map);
-		for(var light : lightRepo.getAll()) {
-			if(lightClient.setWhite(light, "5", 250, 330)) {
-				light.setLightMode(LightMode.MANUAL);
+		Thread.startVirtualThread(() -> {
+					for(var light : lightRepo.getAll()) {
+						if(lightClient.setWhite(light, "5", 250, 330)) {
+							light.setLightMode(LightMode.MANUAL);
+					}
+				}
 			}
-		}
+		);
 		map.put("lights", lightRepo.getAll());
 		return resultHome(map,"All Lights Set To Warm White");
 	}
@@ -95,12 +98,15 @@ class StatusController {
 	String all(ModelMap map, @PathVariable ColorOption colorOption,
 			@PathVariable BrightOption brightOption) {
 		data(map);
-		for(var light : lightRepo.getAll()) {
-			if(lightClient.setColor(light,colorOption.getColor(), 
+		Thread.startVirtualThread( () -> {
+			for(var light : lightRepo.getAll()) {
+				if(lightClient.setColor(light,colorOption.getColor(), 
 					"5", brightOption.getBrightness())) {
-				light.setLightMode(LightMode.MANUAL);
+						light.setLightMode(LightMode.MANUAL);
+					}
+				}
 			}
-		}
+		);
 		return resultHome(map, "All Lights" + colorBright(colorOption, brightOption));
 	}
 	

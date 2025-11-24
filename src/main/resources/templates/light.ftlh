@@ -12,11 +12,12 @@
 
 </@m.colorControl>
 
+<table>
 <#list light.history as h> 
 <#if h??> 
- <p>${h.result()}</p> 
+ <tr><td>${h.result()}</td><td>${h.time()}</td><td>${h.url()}</td></tr> 
 </#if>
 </#list>
-
+</table>
 
 </@m.page>

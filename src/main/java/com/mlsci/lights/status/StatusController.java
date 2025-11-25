@@ -108,7 +108,7 @@ class StatusController {
 	
 	void launch(Collection<Light> lights, Predicate<Light> function) {
 		Thread.startVirtualThread(() ->{
-			try(var scope = new NiceConcurrent(20L)) {
+			try(var scope = new NiceConcurrent(10L)) {
 				for(var light : lights) {
 					if(function.test(light)) {
 						light.setLightMode(LightMode.MANUAL);
